@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import Header from './app/Header';
 
 class App extends Component {
   render() {
     return (
       <div>
-        WEB DEV QA ENGINE
+        <Header/>
       </div>
     );
   }
