@@ -9,10 +9,10 @@ function SingleQuestionPage({questions}) {
     //debugger
     const renderQuestion = () =>  {
         if (question){
-            const answers = question.answers? question.answers.map(ans => <PostCard key={ans.id.toString()} post={ans}/>) : null
+            const answers = question.answers? question.answers.map(ans => <PostCard key={ans.id.toString()} post={ans} body={ans.body}/>) : null
          return (
              <Fragment>
-                <PostCard post={question}/>
+                <PostCard post={question} body={question.body}/>
                 <div style={{'marginLeft': '25px', 'marginTop': '10px'}}>{answers}</div>
                 
              </Fragment>

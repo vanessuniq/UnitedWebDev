@@ -12,7 +12,7 @@ const QuestionsList = ({loading, questions, error}) => {
         } else if (error) {
             return <div>{error}</div>
         } else {
-            return questions.map(question => <PostCard key={question.id} post={question}/>)
+            return questions.map(question => <PostCard key={question.id} post={question} body={question.body.substring(0, 50) + ' ...'}/>)
         }
     }
     return (
