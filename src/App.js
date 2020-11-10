@@ -9,14 +9,20 @@ import Footer from './app/Footer';
 import Header from './app/Header';
 import QuestionsList from './features/questions/QuestionsList';
 import { fetchQuestions } from './actions/questionActions';
+import SingleQuestionPage from './features/questions/SingleQuestionPage';
 
 class App extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+   
   componentDidMount() {
     this.props.fetchQuestions()
   }
 
   render() {
+    
     return (
       <div>
         <Router>
@@ -25,6 +31,9 @@ class App extends Component {
             <Switch>
               <Route exact path='/'>
                 <QuestionsList loading={this.props.loading} questions={this.props.questions} error={this.props.error}/>
+              </Route>
+              <Route exact path='/questions/:questionId'>
+                <SingleQuestionPage questions={this.props.questions}/>
               </Route>
             </Switch>
           </div>

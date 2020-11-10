@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import TimeAgo from './TimeAgo'
 const PostCard = ({post}) => {
     return (
@@ -8,7 +9,7 @@ const PostCard = ({post}) => {
                     <div className=" bg-white p-4 flex flex-col justify-between leading-normal">
                         <div className="mb-8">
                         
-                           {post.title? <div className="text-gray-900 font-bold text-xl mb-2">{post.title}</div> : null}
+                           {post.title? <Link to={`/questions/${post.id}`} className="text-blue-900 hover:text-red-600 font-bold text-xl mb-2">{post.title}</Link> : null}
                             <div className='text-sm'>
                                 <span className="text-gray-900 leading-none">by {post.user.username} </span>
                                 <TimeAgo timestamp={post.created_at}/><br/><br/>
@@ -16,7 +17,7 @@ const PostCard = ({post}) => {
                             <p className="text-gray-700 text-base">{post.body}</p>
                         </div>
                         <div className="flex items-center">
-                            <p>{post.answers.length} answer(s) </p>
+                            {post.answers? <p>{post.answers.length} answer(s) </p> : null}
                            <button> reaction button </button>
                             <div className="text-sm">
                                 {post.votes.length} Vote(s)

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom';
 
 class Header extends Component {
     constructor(props) {
@@ -24,12 +25,12 @@ class Header extends Component {
                 <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-blue-500 mb-3">
                     <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
                         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-                            <a
+                            <Link
                                 className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-white"
-                                href="#pablo"
+                                to="/"
                             >
                                 WEB DEV QA ENGINE
-                            </a>
+                            </Link>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                                 Ask Question
                             </button>
@@ -52,12 +53,12 @@ class Header extends Component {
                         >
                             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
                                 <li className="nav-item">
-                                    <a
+                                    <Link
                                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                                    href="#pablo"
+                                    to="/"
                                     >
                                         <span className="ml-2">Home</span>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
                                     <a

@@ -16,7 +16,7 @@ const QuestionsList = ({loading, questions, error}) => {
         }
     }
     return (
-        <section className='posts-list'>
+        <section className='posts-list mb-8'>
             <h1>Questions</h1>
             {handleQuestionsFetch()}
         </section>
