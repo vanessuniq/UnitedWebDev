@@ -10,6 +10,7 @@ import Header from './app/Header';
 import QuestionsList from './features/questions/QuestionsList';
 import { fetchQuestions } from './actions/questionActions';
 import SingleQuestionPage from './features/questions/SingleQuestionPage';
+import SignUp from './features/users/SignUp';
 
 class App extends Component {
   constructor(props) {
@@ -34,6 +35,9 @@ class App extends Component {
               </Route>
               <Route exact path='/questions/:questionId'>
                 <SingleQuestionPage questions={this.props.questions}/>
+              </Route>
+              <Route exact path='/registration'>
+                <SignUp/>
               </Route>
             </Switch>
           </div>
