@@ -11,14 +11,14 @@ class SignUp extends React.Component {
                 avatar: '',
                 bio: ''
             },
-            submitted: false
+            
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     }
     
     renderError = () => {
-        if (this.props.registrationErrors.length > 0) {
+        if (this.props.registrationErrors) {
             return (
             <ul className="font-bold bg-orange-100 text-orange-700 p-4">
                 {this.props.registrationErrors.map((error, index) => (
@@ -29,13 +29,6 @@ class SignUp extends React.Component {
         }
     }
     
-    canSave = () => {
-        const {user, submitted} = this.state
-        return (
-            [submitted, user.username, user.password].every(Boolean)
-        )
-    }
-      
     handleInputChange = (event) => {
         this.setState({
             ...this.state,
@@ -48,14 +41,11 @@ class SignUp extends React.Component {
     }
     handleSubmit = (event) => {
         event.preventDefault();
-        this.setState({...this.state, submitted: true})
-
-        if(this.canSave()) {
-            this.props.register({user: this.state.user})
-        }
+        this.props.register({user: this.state.user})
     }
     render() {
-        const {user, submitted} = this.state
+        const {user} = this.state
+        const canSave = [user.username, user.password].every(Boolean)
         return (
             <div className="bg-grey-lighter w-full flex flex-col items-center justify-center h-screen">
                     <div className="mt-40">
@@ -73,10 +63,7 @@ class SignUp extends React.Component {
                                 value={user.username}
                                 onChange={this.handleInputChange}
                             />
-                            {submitted && !user.username?
-                                 <small className="font-medium tracking-wide text-red-500">Username is required</small> :
-                                 <small className="text-black-600">Enter Username</small>
-                            }
+                            {!canSave? <small className="font-medium tracking-wide text-red-500">Username is required</small>: null}
                             
                         </label>
                     </div>
@@ -88,10 +75,7 @@ class SignUp extends React.Component {
                                 aria-required="true" value={user.password}
                                 onChange={this.handleInputChange}
                             />
-                            {submitted && !user.password?
-                                 <small className="font-medium tracking-wide text-red-500">Password is required</small> :
-                                 <small className="text-black-600">Enter Password</small>
-                            }
+                            {!canSave? <small className="font-medium tracking-wide text-red-500">Password is required</small>: null}
                             
                         </label>
                     </div>
@@ -120,9 +104,12 @@ class SignUp extends React.Component {
                     </div>
                         
                     <div className="mt-4">
-                       <input type="submit" value="Sign Up"
+                       <button type="submit" 
                             className="button hover:bg-green-400 focus:shadow-outline focus:outline-none"
-                       />
+                            disabled={!canSave}
+                        >
+                            Sign Up
+                        </button>
                         <Link to='/' 
                             className="text-pink-500 hover:text-red-600 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none"
                         >Cancel</Link>
