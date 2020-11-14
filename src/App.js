@@ -11,6 +11,7 @@ import QuestionsList from './features/questions/QuestionsList';
 import { fetchQuestions } from './actions/questionActions';
 import SingleQuestionPage from './features/questions/SingleQuestionPage';
 import SignUp from './features/users/SignUp';
+import { register } from './actions/userActions';
 
 class App extends Component {
   constructor(props) {
@@ -23,7 +24,6 @@ class App extends Component {
   }
 
   render() {
-    
     return (
       <div>
         <Router>
@@ -37,7 +37,7 @@ class App extends Component {
                 <SingleQuestionPage questions={this.props.questions}/>
               </Route>
               <Route exact path='/registration'>
-                <SignUp/>
+                <SignUp register={this.props.register} registrationErrors={this.props.registrationErrors}/>
               </Route>
             </Switch>
           </div>
@@ -53,7 +53,12 @@ const mapStateToProps = state => {
   return {
     questions: state.questions.questions,
     loading: state.questions.loading,
-    error: state.questions.error
+    error: state.questions.error,
+    registrationErrors: state.users.errors
   }
 }
-export default connect(mapStateToProps, { fetchQuestions })(App)
+const mapDispatchToProps = dispatch => ({
+  fetchQuestions: () => dispatch(fetchQuestions()),
+  register: userInfo => dispatch(register(userInfo))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(App)
