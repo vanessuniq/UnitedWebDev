@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
+import LoggedInNav from './nav/LoggedInNav';
+import DefaultNav from './nav/DefaultNav';
 
 class Header extends Component {
     constructor(props) {
@@ -60,22 +62,10 @@ class Header extends Component {
                                         <span className="ml-2">Home</span>
                                     </Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link
-                                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                                    to="/login"
-                                    >
-                                        <span className="ml-2">Login</span>
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link
-                                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                                    to="/registration"
-                                    >
-                                        <span className="ml-2">Sign up</span>
-                                    </Link>
-                                </li>
+                                {this.props.currentUser.username? 
+                                    <LoggedInNav currentUser={this.props.currentUser} logoutUser={this.props.logoutUser}/> 
+                                    : <DefaultNav/>
+                                }
                             </ul>
                         </div>
                     </div>

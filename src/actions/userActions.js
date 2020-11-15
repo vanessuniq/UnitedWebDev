@@ -51,6 +51,10 @@ export const login = (user) => {
     };
 };
 
+export const logoutUser = () => {
+    return { type: 'LOGOUT_USER' };
+}
+
 export const getProfile = () => {
     return async dispatch => {
         try {

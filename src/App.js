@@ -11,7 +11,7 @@ import QuestionsList from './features/questions/QuestionsList';
 import { fetchQuestions } from './actions/questionActions';
 import SingleQuestionPage from './features/questions/SingleQuestionPage';
 import SignUp from './features/users/SignUp';
-import { register, login, getProfile } from './actions/userActions';
+import { register, login, getProfile, logoutUser } from './actions/userActions';
 import Login from './features/users/Login';
 import { Alert } from './helpers/notifications';
 
@@ -25,12 +25,15 @@ class App extends Component {
     this.props.fetchQuestions()
     this.props.getProfile()
   }
-
+  logout = () => {
+    localStorage.removeItem('token')
+    this.props.logoutUser()
+  }
   render() {
     return (
       <div>
         <Router>
-          <Header/>
+          <Header currentUser={this.props.currentUser} logoutUser={this.logout}/>
           <div className="p-3">
             <Switch>
               <Route exact path='/'>
@@ -61,13 +64,15 @@ const mapStateToProps = state => {
     questions: state.questions.questions,
     loading: state.questions.loading,
     error: state.questions.error,
-    authErrors: state.users.errors
+    authErrors: state.users.errors,
+    currentUser: state.users.currentUser
   }
 }
 const mapDispatchToProps = dispatch => ({
   fetchQuestions: () => dispatch(fetchQuestions()),
   register: userInfo => dispatch(register(userInfo)),
   login: userInfo => dispatch(login(userInfo)),
-  getProfile: () => dispatch(getProfile())
+  getProfile: () => dispatch(getProfile()),
+  logoutUser: () => dispatch(logoutUser())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)

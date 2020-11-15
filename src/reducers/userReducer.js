@@ -17,6 +17,8 @@ export const userReducer = (state = initialState, action) => {
             } else {
                 return {...state, all: state.all.concat(action.payload), currentUser: action.payload, errors: [] }
             };
+        case 'LOGOUT_USER':
+            return {...state, currentUser: {} }
         case 'CREATING_OR_GETTING_USER':
             return {...state, errors: [] }
 
