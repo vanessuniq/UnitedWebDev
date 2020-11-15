@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import RenderErrors from '../../helpers/RenderErrors';
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -16,19 +17,7 @@ class SignUp extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     }
-    
-    renderError = () => {
-        if (this.props.registrationErrors) {
-            return (
-            <ul className="font-bold bg-orange-100 text-orange-700 p-4">
-                {this.props.registrationErrors.map((error, index) => (
-                    <li key={index}>{error}</li>
-                ))}
-            </ul>
-        )
-        }
-    }
-    
+      
     handleInputChange = (event) => {
         this.setState({
             ...this.state,
@@ -53,7 +42,7 @@ class SignUp extends React.Component {
                         <h3 className="mb-4 text-2xl text-center">Welcome proactive learner, please sign up below</h3>
                     </div>
                 <form className="bg-white md:w-1/2 shadow-md rounded px-8 pt-6 pb-8 mb-8" onSubmit={this.handleSubmit}>
-                    {this.renderError()}
+                    <RenderErrors errors={this.props.authErrors}/>
                     <div className="mt-4">
                         <label htmlFor="username" className="block">
                             <span className="text-gray-700">Username</span>
@@ -105,7 +94,7 @@ class SignUp extends React.Component {
                         
                     <div className="mt-4">
                        <button type="submit" 
-                            className="button hover:bg-green-400 focus:shadow-outline focus:outline-none"
+                            className={`button focus:shadow-outline focus:outline-none ${canSave? 'hover:bg-green-400': ''}`}
                             disabled={!canSave}
                         >
                             Sign Up
@@ -117,7 +106,7 @@ class SignUp extends React.Component {
                 </form>
                 <div className="mb-16 text-gray-dark">
                     Already have an account?
-                    <Link to="" className="no-underline border-b border-blue text-blue-600"> Log in</Link>
+                    <Link to="/login" className="no-underline border-b border-blue text-blue-600"> Log in</Link>
                 </div>
             </div>
         );

@@ -11,7 +11,8 @@ import QuestionsList from './features/questions/QuestionsList';
 import { fetchQuestions } from './actions/questionActions';
 import SingleQuestionPage from './features/questions/SingleQuestionPage';
 import SignUp from './features/users/SignUp';
-import { register } from './actions/userActions';
+import { register, login } from './actions/userActions';
+import Login from './features/users/Login';
 
 class App extends Component {
   constructor(props) {
@@ -37,7 +38,10 @@ class App extends Component {
                 <SingleQuestionPage questions={this.props.questions}/>
               </Route>
               <Route exact path='/registration'>
-                <SignUp register={this.props.register} registrationErrors={this.props.registrationErrors}/>
+                <SignUp register={this.props.register} authErrors={this.props.authErrors}/>
+              </Route>
+              <Route exact path='/login'>
+                <Login login={this.props.login} authErrors={this.props.authErrors}/>
               </Route>
             </Switch>
           </div>
@@ -54,11 +58,12 @@ const mapStateToProps = state => {
     questions: state.questions.questions,
     loading: state.questions.loading,
     error: state.questions.error,
-    registrationErrors: state.users.errors
+    authErrors: state.users.errors
   }
 }
 const mapDispatchToProps = dispatch => ({
   fetchQuestions: () => dispatch(fetchQuestions()),
-  register: userInfo => dispatch(register(userInfo))
+  register: userInfo => dispatch(register(userInfo)),
+  login: userInfo => dispatch(login(userInfo))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)
