@@ -13,7 +13,7 @@ import SingleQuestionPage from './features/questions/SingleQuestionPage';
 import SignUp from './features/users/SignUp';
 import { register, login, getProfile, logoutUser } from './actions/userActions';
 import Login from './features/users/Login';
-import { Alert } from './helpers/notifications';
+import { Alert, success } from './helpers/notifications';
 
 class App extends Component {
   constructor(props) {
@@ -28,6 +28,7 @@ class App extends Component {
   logout = () => {
     localStorage.removeItem('token')
     this.props.logoutUser()
+    success('Thanks for visiting, successfully logged out!')
   }
   render() {
     return (
