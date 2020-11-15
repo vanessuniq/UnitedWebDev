@@ -49,7 +49,7 @@ class Header extends Component {
                             "lg:flex flex-grow items-center" +
                             (this.state.isOpen ? " flex" : " hidden")
                             }
-                            id="example-navbar-danger"
+                            
                         >
                             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
                                 <li className="nav-item">
