@@ -7,4 +7,15 @@ export const postConfig = (data) => {
         },
         body: JSON.stringify(data)
     }
+};
+
+export const getProfileConfig = (token) => {
+    return {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    }
 }

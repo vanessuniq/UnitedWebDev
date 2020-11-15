@@ -11,8 +11,9 @@ import QuestionsList from './features/questions/QuestionsList';
 import { fetchQuestions } from './actions/questionActions';
 import SingleQuestionPage from './features/questions/SingleQuestionPage';
 import SignUp from './features/users/SignUp';
-import { register, login } from './actions/userActions';
+import { register, login, getProfile } from './actions/userActions';
 import Login from './features/users/Login';
+import { Alert } from './helpers/notifications';
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class App extends Component {
    
   componentDidMount() {
     this.props.fetchQuestions()
+    this.props.getProfile()
   }
 
   render() {
@@ -45,6 +47,7 @@ class App extends Component {
               </Route>
             </Switch>
           </div>
+          <Alert stack={ { limit: 3 } }/>
           <Footer/>
         </Router>
         
@@ -64,6 +67,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   fetchQuestions: () => dispatch(fetchQuestions()),
   register: userInfo => dispatch(register(userInfo)),
-  login: userInfo => dispatch(login(userInfo))
+  login: userInfo => dispatch(login(userInfo)),
+  getProfile: () => dispatch(getProfile())
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App)

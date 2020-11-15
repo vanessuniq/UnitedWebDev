@@ -1,5 +1,6 @@
-import { postConfig } from "../helpers/configOptions";
+import { getProfileConfig, postConfig } from "../helpers/configOptions";
 import { history } from "../helpers/history";
+import { error, success, warning } from "../helpers/notifications";
 
 const authFailed = error => ({
     type: 'AUTH_FAILED',
@@ -19,11 +20,12 @@ export const register = (user) => {
                 dispatch(authFailed(data.errors))
             } else {
                 localStorage.setItem('token', data.jwt)
+                success(`Welcome ${data.user.username}, your account has been created!`)
                 dispatch(loginUser(data.user))
                 history.goBack()
             };
         } catch (e) {
-            dispatch(authFailed(e))
+            error(e)
             throw e
         }
     };
@@ -38,11 +40,37 @@ export const login = (user) => {
                 dispatch(authFailed(data.failure))
             } else {
                 localStorage.setItem('token', data.jwt)
+                success(`Welcome back ${data.user.username}`)
                 dispatch(loginUser(data.user))
                 history.goBack()
             };
         } catch (e) {
-            dispatch(authFailed(e))
+            error(e)
+            throw e
+        }
+    };
+};
+
+export const getProfile = () => {
+    return async dispatch => {
+        try {
+
+            const token = localStorage.token;
+            if (token) {
+                const data = await fetch('http://localhost:8080/api/v1/auto_login', getProfileConfig(token))
+                    .then(resp => resp.json());
+                if (data.message) {
+                    localStorage.removeItem('token')
+                    warning(data.message)
+                    history.push('/login')
+
+                } else {
+                    dispatch(loginUser(data.user))
+                };
+
+            }
+        } catch (e) {
+            error(e)
             throw e
         }
     };
