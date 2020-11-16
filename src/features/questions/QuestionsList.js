@@ -1,6 +1,5 @@
 import React from 'react';
 import PostCard from '../../helpers/PostCard';
-import AddQuestion from './AddQuestion';
 
 const QuestionsList = ({loading, questions}) => {
     const handleQuestionsFetch = () => {
@@ -19,7 +18,6 @@ const QuestionsList = ({loading, questions}) => {
     return (
         <section className='posts-list mb-8'>
             <h1>Questions</h1>
-            <AddQuestion />
             {handleQuestionsFetch()}
         </section>
     );

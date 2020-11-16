@@ -4,21 +4,34 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
 import LoggedInNav from './nav/LoggedInNav';
 import DefaultNav from './nav/DefaultNav';
+import AddQuestion from '../features/questions/AddQuestion';
+import { history } from '../helpers/history';
+import { warning } from '../helpers/notifications';
 
 class Header extends Component {
     constructor(props) {
 		super(props);
 
 		this.state = {
-			isOpen: false
+            isOpen: false,
+            showQuestionForm: false
 		};
 
-		this.toggleNavMenu = this.toggleNavMenu.bind(this);
+        this.toggleNavMenu = this.toggleNavMenu.bind(this);
+        this.toggleQuestionForm = this.toggleQuestionForm.bind(this)
 	}
 
-	toggleNavMenu() {
+	toggleNavMenu = () => {
 		this.setState({ isOpen: !this.state.isOpen });
-	}
+    }
+    toggleQuestionForm = () => {
+        if (this.props.currentUser.username){
+            this.setState({...this.state, showQuestionForm: !this.state.showQuestionForm})
+        } else {
+            warning('You must be logged in to post a question')
+            history.push('/login')
+        };   
+    }
 
 	render() {
 		
@@ -33,9 +46,15 @@ class Header extends Component {
                             >
                                 WEB DEV QA ENGINE
                             </Link>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                                onClick={this.toggleQuestionForm}
+                            >
                                 Ask Question
                             </button>
+                            <AddQuestion visible={this.state.showQuestionForm} postQuestion={this.props.postQuestion}
+                                currentUser={this.props.currentUser} postErrors={this.props.postErrors}
+                                toggleQuestionForm={this.toggleQuestionForm}
+                            />
                             <button
                                 className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
                                 type="button"

@@ -1,7 +1,6 @@
-import { postConfig } from "../helpers/configOptions"
+import { postQuestionConfig } from "../helpers/configOptions"
 import { history } from "../helpers/history"
-import { error, success } from "../helpers/notifications"
-
+import { error, success, warning } from "../helpers/notifications"
 
 export const fetchQuestions = () => {
     return dispatch => {
@@ -15,15 +14,22 @@ export const fetchQuestions = () => {
 export const postQuestion = (question) => {
     return async dispatch => {
         try {
-            const data = await fetch('http://localhost:8080/api/v1/questions', postConfig(question))
-                .then(resp => resp.json())
-            if (data.errors) {
-                dispatch(postQuestionsFailled(data.errors))
+            const token = localStorage.token;
+            if (token) {
+                const data = await fetch('http://localhost:8080/api/v1/questions', postQuestionConfig(question, token))
+                    .then(resp => resp.json())
+                if (data.errors) {
+                    dispatch(postQuestionsFailled(data.errors))
+                } else {
+                    dispatch(addQuestion(data.question))
+                    success('Your question has been posted')
+                    history.push(`/questions/${data.question.id}`)
+                };
             } else {
-                dispatch(addQuestion(data.question))
-                success('Your question has been posted')
-                history.push('/questions/' + data.question.id)
+                warning('You must be logged in to post a question')
+                history.push('/login')
             };
+
         } catch (e) {
             error(e)
             throw e

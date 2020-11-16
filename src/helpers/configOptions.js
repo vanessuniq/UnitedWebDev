@@ -8,7 +8,17 @@ export const postConfig = (data) => {
         body: JSON.stringify(data)
     }
 };
-
+export const postQuestionConfig = (data, token) => {
+    return {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    }
+};
 export const getProfileConfig = (token) => {
     return {
         method: "GET",

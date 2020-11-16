@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import Footer from './app/Footer';
 import Header from './app/Header';
 import QuestionsList from './features/questions/QuestionsList';
-import { fetchQuestions } from './actions/questionActions';
+import { fetchQuestions, postQuestion } from './actions/questionActions';
 import SingleQuestionPage from './features/questions/SingleQuestionPage';
 import SignUp from './features/users/SignUp';
 import { register, login, getProfile, logoutUser } from './actions/userActions';
@@ -34,7 +34,9 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <Header currentUser={this.props.currentUser} logoutUser={this.logout}/>
+          <Header currentUser={this.props.currentUser} logoutUser={this.logout}
+            postQuestion={this.props.postQuestion} postErrors={this.props.questionError}
+          />
           <div className="p-3">
             <Switch>
               <Route exact path='/'>
@@ -64,13 +66,14 @@ const mapStateToProps = state => {
   return {
     questions: state.questions.questions,
     loading: state.questions.loading,
-    error: state.questions.error,
+    questionError: state.questions.error,
     authErrors: state.users.errors,
     currentUser: state.users.currentUser
   }
 }
 const mapDispatchToProps = dispatch => ({
   fetchQuestions: () => dispatch(fetchQuestions()),
+  postQuestion: (questionInfo) => dispatch(postQuestion(questionInfo)) ,
   register: userInfo => dispatch(register(userInfo)),
   login: userInfo => dispatch(login(userInfo)),
   getProfile: () => dispatch(getProfile()),
