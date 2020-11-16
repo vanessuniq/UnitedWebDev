@@ -19,6 +19,14 @@ export const postQuestionConfig = (data, token) => {
         body: JSON.stringify(data)
     }
 };
+export const deleteQuestionConfig = (token) => {
+    return {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }
+};
 export const getProfileConfig = (token) => {
     return {
         method: "GET",

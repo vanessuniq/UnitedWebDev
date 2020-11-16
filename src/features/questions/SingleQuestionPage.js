@@ -3,16 +3,19 @@ import { Fragment } from 'react'
 import { useParams } from 'react-router-dom'
 import PostCard from '../../helpers/PostCard'
 
-function SingleQuestionPage({questions}) {
+function SingleQuestionPage({questions, currentUser, deleteQuestion}) {
     const {questionId}= useParams()
     const question = questions.find(quest => quest.id === parseInt(questionId, 10))
     //debugger
     const renderQuestion = () =>  {
         if (question){
-            const answers = question.answers? question.answers.map(ans => <PostCard key={ans.id.toString()} post={ans} body={ans.body}/>) : null
+            const answers = question.answers? 
+                question.answers.map(ans => (
+                <PostCard key={ans.id.toString()} post={ans} body={ans.body}  currentUser={currentUser} deleteQuestion={deleteQuestion}/>
+                )) : null
          return (
              <Fragment>
-                <PostCard post={question} body={question.body}/>
+                <PostCard post={question} body={question.body}  currentUser={currentUser} deleteQuestion={deleteQuestion}/>
                 <div style={{'marginLeft': '25px', 'marginTop': '10px'}}>{answers}</div>
                 
              </Fragment>

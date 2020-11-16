@@ -1,6 +1,6 @@
 import { getProfileConfig, postConfig } from "../helpers/configOptions";
 import { history } from "../helpers/history";
-import { error, success, warning } from "../helpers/notifications";
+import { error, success } from "../helpers/notifications";
 
 const authFailed = error => ({
     type: 'AUTH_FAILED',
@@ -65,8 +65,6 @@ export const getProfile = () => {
                     .then(resp => resp.json());
                 if (data.message) {
                     localStorage.removeItem('token')
-                    warning(data.message)
-                    history.push('/login')
 
                 } else {
                     dispatch(loginUser(data.user))

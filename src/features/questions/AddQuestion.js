@@ -32,9 +32,21 @@ class AddQuestion extends Component {
             
         })
     }
-    handleSubmit = (event) => {
+      handleSubmit = (event) => {
         event.preventDefault();
         this.props.postQuestion({question: {...this.state.question, user_id: this.props.currentUser.id}})
+        
+        if (this.props.postErrors.length === 0) {
+            this.props.toggleQuestionForm()
+        }
+        this.setState({
+            ...this.state,
+            question: {
+                title: '',
+                body: '',
+                topic: ''
+            },
+        })
     }
      
     render() {

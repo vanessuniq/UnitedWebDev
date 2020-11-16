@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import Footer from './app/Footer';
 import Header from './app/Header';
 import QuestionsList from './features/questions/QuestionsList';
-import { fetchQuestions, postQuestion } from './actions/questionActions';
+import { fetchDeleteQuestion, fetchQuestions, postQuestion } from './actions/questionActions';
 import SingleQuestionPage from './features/questions/SingleQuestionPage';
 import SignUp from './features/users/SignUp';
 import { register, login, getProfile, logoutUser } from './actions/userActions';
@@ -40,10 +40,14 @@ class App extends Component {
           <div className="p-3">
             <Switch>
               <Route exact path='/'>
-                <QuestionsList loading={this.props.loading} questions={this.props.questions}/>
+                <QuestionsList loading={this.props.loading} questions={this.props.questions} 
+                currentUser={this.props.currentUser}  deleteQuestion={this.props.fetchDeleteQuestion}
+                />
               </Route>
               <Route exact path='/questions/:questionId'>
-                <SingleQuestionPage questions={this.props.questions}/>
+                <SingleQuestionPage questions={this.props.questions} currentUser={this.props.currentUser}
+                   deleteQuestion={this.props.fetchDeleteQuestion}
+                />
               </Route>
               <Route exact path='/registration'>
                 <SignUp register={this.props.register} authErrors={this.props.authErrors}/>
@@ -74,6 +78,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   fetchQuestions: () => dispatch(fetchQuestions()),
   postQuestion: (questionInfo) => dispatch(postQuestion(questionInfo)) ,
+  fetchDeleteQuestion: (questionId) => dispatch(fetchDeleteQuestion(questionId)),
   register: userInfo => dispatch(register(userInfo)),
   login: userInfo => dispatch(login(userInfo)),
   getProfile: () => dispatch(getProfile()),

@@ -1,4 +1,4 @@
-import { postQuestionConfig } from "../helpers/configOptions"
+import { deleteQuestionConfig, postQuestionConfig } from "../helpers/configOptions"
 import { history } from "../helpers/history"
 import { error, success, warning } from "../helpers/notifications"
 
@@ -16,14 +16,13 @@ export const postQuestion = (question) => {
         try {
             const token = localStorage.token;
             if (token) {
-                const data = await fetch('http://localhost:8080/api/v1/questions', postQuestionConfig(question, token))
-                    .then(resp => resp.json())
+                const data = await fetch('http://localhost:8080/api/v1/questions', postQuestionConfig(question, token)).then(resp => resp.json())
                 if (data.errors) {
                     dispatch(postQuestionsFailled(data.errors))
                 } else {
                     dispatch(addQuestion(data.question))
                     success('Your question has been posted')
-                    history.push(`/questions/${data.question.id}`)
+
                 };
             } else {
                 warning('You must be logged in to post a question')
@@ -34,6 +33,29 @@ export const postQuestion = (question) => {
             error(e)
             throw e
         }
+    };
+};
+
+export const fetchDeleteQuestion = (questionId) => {
+    return async dispatch => {
+        try {
+            const token = localStorage.token;
+            if (token) {
+                const data = await fetch(`http://localhost:8080/api/v1/questions/${questionId}`, deleteQuestionConfig(token))
+                if (data.status === 204) {
+                    dispatch(deleteQuestion(questionId))
+                    success('Your question has been deleted')
+                    history.push('/')
+
+                } else {
+                    error(data.json().error)
+                };
+            } else {
+                warning('You must be logged in to delete a question')
+                history.push('/login')
+            };
+
+        } catch (e) { error(e) }
     };
 };
 
@@ -49,4 +71,10 @@ const addQuestion = (question) => {
         type: 'ADD_QUESTION',
         payload: question
     }
+}
+export const deleteQuestion = (questionId) => {
+    return {
+        type: 'DELETE_QUESTION',
+        payload: questionId
+    };
 }

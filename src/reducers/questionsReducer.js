@@ -28,6 +28,12 @@ export const questionsReducer = (state = { questions: [], loading: false, error:
                 loading: false,
                 error: []
             }
+        case 'DELETE_QUESTION':
+            return {
+                ...state,
+                questions: state.questions.filter(question => question.id !== action.payload)
+
+            }
         default:
             return state
     }
