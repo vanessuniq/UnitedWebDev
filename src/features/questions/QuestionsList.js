@@ -1,7 +1,8 @@
 import React from 'react';
 import PostCard from '../../helpers/PostCard';
+import AddQuestion from './AddQuestion';
 
-const QuestionsList = ({loading, questions, error}) => {
+const QuestionsList = ({loading, questions}) => {
     const handleQuestionsFetch = () => {
         if (loading) {
             return (
@@ -9,15 +10,16 @@ const QuestionsList = ({loading, questions, error}) => {
                     <div className="loader"></div>
                 </div>
             )
-        } else if (error) {
-            return <div>{error}</div>
-        } else {
+        } else if(questions) {
             return questions.map(question => <PostCard key={question.id} post={question} body={question.body.substring(0, 50) + ' ...'}/>)
+        } else {
+            return <div>Nothing to display</div>
         }
     }
     return (
         <section className='posts-list mb-8'>
             <h1>Questions</h1>
+            <AddQuestion />
             {handleQuestionsFetch()}
         </section>
     );

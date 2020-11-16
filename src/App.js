@@ -38,7 +38,7 @@ class App extends Component {
           <div className="p-3">
             <Switch>
               <Route exact path='/'>
-                <QuestionsList loading={this.props.loading} questions={this.props.questions} error={this.props.error}/>
+                <QuestionsList loading={this.props.loading} questions={this.props.questions}/>
               </Route>
               <Route exact path='/questions/:questionId'>
                 <SingleQuestionPage questions={this.props.questions}/>
