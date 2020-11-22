@@ -22,7 +22,7 @@ export const register = (user) => {
                 localStorage.setItem('token', data.jwt)
                 success(`Welcome ${data.user.username}, your account has been created!`)
                 dispatch(loginUser(data.user))
-                history.goBack()
+                history.push('/')
             };
         } catch (e) {
             error(e)
@@ -42,7 +42,7 @@ export const login = (user) => {
                 localStorage.setItem('token', data.jwt)
                 success(`Welcome back ${data.user.username}`)
                 dispatch(loginUser(data.user))
-                history.goBack()
+                history.push('/')
             };
         } catch (e) {
             error(e)
