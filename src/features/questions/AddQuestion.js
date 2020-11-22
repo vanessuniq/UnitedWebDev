@@ -20,7 +20,8 @@ class AddQuestion extends Component {
     }
     closeForm = (event) =>{
         event.preventDefault()
-        this.props.toggleQuestionForm()        
+        this.props.toggleQuestionForm()
+        this.setState({...this.state, question: {title: '', body: '', topic: ''}})    
     }
     handleInputChange = (event) => {
         this.setState({
