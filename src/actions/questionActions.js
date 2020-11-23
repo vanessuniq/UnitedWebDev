@@ -67,7 +67,7 @@ export const fetchDeleteQuestion = (questionId) => {
     };
 };
 
-const postQuestionsFailled = (error) => {
+export const postQuestionsFailled = (error) => {
     return {
         type: 'POST_QUESTION_REJECTED',
         payload: error
