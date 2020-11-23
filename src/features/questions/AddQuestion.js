@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { success } from '../../helpers/notifications';
 import QuestionForm from './QuestionForm';
 
 class AddQuestion extends Component {
@@ -35,6 +36,7 @@ class AddQuestion extends Component {
         this.props.postQuestion({question: {...this.state.question, user_id: this.props.currentUser.id}})
         
         if (this.props.postErrors.length === 0) {
+            success('Your question has been posted')
             this.closeForm()
         }    
     }

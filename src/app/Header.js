@@ -1,17 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import LoggedInNav from './nav/LoggedInNav';
 import DefaultNav from './nav/DefaultNav';
 import AddQuestion from '../features/questions/AddQuestion';
-import { history } from '../helpers/history';
 import { warning } from '../helpers/notifications';
 
 class Header extends Component {
     constructor(props) {
-		super(props);
-
+        super(props);
+        
 		this.state = {
             isOpen: false,
             showQuestionForm: false
@@ -20,7 +19,7 @@ class Header extends Component {
         this.toggleNavMenu = this.toggleNavMenu.bind(this);
         this.toggleQuestionForm = this.toggleQuestionForm.bind(this)
 	}
-
+    
 	toggleNavMenu = () => {
 		this.setState({ isOpen: !this.state.isOpen });
     }
@@ -28,8 +27,8 @@ class Header extends Component {
         if (this.props.currentUser.username){
             this.setState({...this.state, showQuestionForm: !this.state.showQuestionForm})
         } else {
+            this.props.history.push("/login")
             warning('You must be logged in to post a question')
-            history.push('/login')
         };   
     }
 
@@ -94,4 +93,4 @@ class Header extends Component {
 	}
 }
 
-export default Header;
+export default withRouter(Header);

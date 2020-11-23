@@ -31,6 +31,7 @@ class App extends Component {
     success('Thanks for visiting, successfully logged out!')
   }
   render() {
+   
     return (
       <div>
         <Router>

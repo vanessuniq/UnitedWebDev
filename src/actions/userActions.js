@@ -40,9 +40,8 @@ export const login = (user) => {
                 dispatch(authFailed(data.failure))
             } else {
                 localStorage.setItem('token', data.jwt)
-                success(`Welcome back ${data.user.username}`)
                 dispatch(loginUser(data.user))
-                history.push('/')
+                success(`Welcome back ${data.user.username}`)
             };
         } catch (e) {
             error(e)

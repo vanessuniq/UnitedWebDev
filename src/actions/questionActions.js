@@ -21,8 +21,6 @@ export const postQuestion = (question) => {
                     dispatch(postQuestionsFailled(data.errors))
                 } else {
                     dispatch(addQuestion(data.question))
-                    success('Your question has been posted')
-
                 };
             } else {
                 warning('You must be logged in to post a question')

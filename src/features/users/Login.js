@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import RenderErrors from '../../helpers/RenderErrors';
 
 class Login extends Component {
@@ -24,9 +24,12 @@ class Login extends Component {
             
         })
     }
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        this.props.login({user: this.state.user})
+        await this.props.login({user: this.state.user})
+        if (this.props.authErrors.length === 0) {
+            this.props.history.push('/')
+        }
     }
     render() {
         const {user} = this.state
@@ -81,4 +84,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);
