@@ -39,6 +39,27 @@ export const questionsReducer = (state = { questions: [], loading: false, error:
                 questions: state.questions.filter(question => question.id !== action.payload)
 
             }
+        case 'ADD_ANSWER':
+            const newList = state.questions.map(question => {
+                if (question.id === action.payload.questionId) {
+                    question.answers = question.answers.concat(action.payload.answer)
+                    return question
+                } else {
+                    return question
+                };
+            })
+            return {
+                ...state,
+                questions: newList
+            }
+        case 'DELETE_ANSWER':
+            return {
+                ...state,
+                questions: state.questions.map(question => {
+                    question.answers = question.answers.filter(answer => answer.id !== action.payload)
+                    return question
+                })
+            }
         default:
             return state
     }

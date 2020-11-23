@@ -15,6 +15,7 @@ import { register, login, getProfile, logoutUser } from './actions/userActions';
 import Login from './features/users/Login';
 import { Alert, success } from './helpers/notifications';
 import EditQuestion from './features/questions/EditQuestion';
+import { fetchDeleteAnswer, postAnswer } from './actions/answerActions';
 
 class App extends Component {
   constructor(props) {
@@ -48,7 +49,8 @@ class App extends Component {
               </Route>
               <Route exact path='/questions/:questionId'>
                 <SingleQuestionPage questions={this.props.questions} currentUser={this.props.currentUser}
-                   deleteQuestion={this.props.fetchDeleteQuestion}
+                   deleteQuestion={this.props.fetchDeleteQuestion} postErrors= {this.props.questionError}
+                   postAnswer={this.props.postAnswer} deleteAnswer={this.props.fetchDeleteAnswer}
                 />
               </Route>
               <Route exact path='/registration'>
@@ -86,6 +88,8 @@ const mapDispatchToProps = dispatch => ({
   postQuestion: (questionInfo) => dispatch(postQuestion(questionInfo)) ,
   fetchUpdateQuestion: (questionInfo) => dispatch(fetchUpdateQuestion(questionInfo)),
   fetchDeleteQuestion: (questionId) => dispatch(fetchDeleteQuestion(questionId)),
+  postAnswer: (answerInfo) => dispatch(postAnswer(answerInfo)) ,
+  fetchDeleteAnswer: (answerId) => dispatch(fetchDeleteAnswer(answerId)),
   register: userInfo => dispatch(register(userInfo)),
   login: userInfo => dispatch(login(userInfo)),
   getProfile: () => dispatch(getProfile()),

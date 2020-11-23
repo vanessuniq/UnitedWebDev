@@ -1,22 +1,35 @@
 import React from 'react'
 import { Fragment } from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import PostCard from '../../helpers/PostCard'
+import AnswerForm from '../answers/AnswerForm'
 
-function SingleQuestionPage({questions, currentUser, deleteQuestion}) {
+function SingleQuestionPage({questions, currentUser, deleteQuestion, deleteAnswer, postAnswer, postErrors}) {
     const {questionId}= useParams()
+    const history = useHistory()
     const question = questions.find(quest => quest.id === parseInt(questionId, 10))
     //debugger
     const renderQuestion = () =>  {
         if (question){
             const answers = question.answers? 
                 question.answers.map(ans => (
-                <PostCard key={ans.id.toString()} post={ans} body={ans.body}  currentUser={currentUser} deleteQuestion={deleteQuestion}/>
+                <PostCard key={ans.id.toString()} post={ans} body={ans.body}  currentUser={currentUser} 
+                    deleteQuestion={() => {
+                        deleteAnswer(ans.id);
+                        history.push(`/questions/${questionId}`)
+                    }}/>
                 )) : null
          return (
              <Fragment>
-                <PostCard post={question} body={question.body}  currentUser={currentUser} deleteQuestion={deleteQuestion}/>
-                <div style={{'marginLeft': '25px', 'marginTop': '10px'}}>{answers}</div>
+                <PostCard post={question} body={question.body}  currentUser={currentUser} deleteQuestion={() => {
+                    deleteQuestion(question.id)
+                    history.push('/')
+                }}/>
+                <div style={{'marginLeft': '25px', 'marginTop': '10px'}}>
+                    <h2 className='text-xl text-indigo-500 mb-2 max-w-sm lg:max-w-full text-center'>Your Answer</h2>
+                    <AnswerForm currentUser={currentUser} postAnswer={postAnswer} postErrors={postErrors}/>
+                    {answers}
+                </div>
                 
              </Fragment>
          )
