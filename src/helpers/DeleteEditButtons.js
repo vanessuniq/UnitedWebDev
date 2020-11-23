@@ -9,7 +9,12 @@ export default function DeleteEditButtons ({deleteQuestion, post}) {
             Edit
             </Link>
         </button>
-        <button type='button' className='reaction-button' onClick={() => deleteQuestion(post.id)}>
+        <button type='button' className='reaction-button' onClick={() =>{ 
+            const sure = window.confirm('Would you like to delete your post?')
+            if (sure) {
+                deleteQuestion(post.id)
+            }
+            }}>
             <span className="text-red-400 hover:text-red-900 font-bold leading-none">Delete</span>
         </button>
        </Fragment>

@@ -40,7 +40,6 @@ class EditQuestion extends Component {
         ))
         return (
             <section>
-                what's up
                 <QuestionForm title={title} body={body} topic={topic} topicOptions={topicOptions}
                     canSave={canSave} postErrors={this.props.postErrors}
                     handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit}
