@@ -19,6 +19,17 @@ export const postQuestionConfig = (data, token) => {
         body: JSON.stringify(data)
     }
 };
+export const putQuestionConfig = (data, token) => {
+    return {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    }
+};
 export const deleteQuestionConfig = (token) => {
     return {
         method: 'DELETE',

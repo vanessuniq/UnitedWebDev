@@ -1,18 +1,14 @@
-import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import RenderErrors from '../../helpers/RenderErrors'
 
-export default function QuestionForm({title, body, topic, topicOptions,canSave, closeForm, postErrors, handleSubmit, handleInputChange}) {
+export default function QuestionForm({title, body, topic, topicOptions, formType, canSave, postErrors, handleSubmit, handleInputChange}) {
     return (
-        <form className='bg-white relative shadow-md max-w-xl rounded px-8 pt-6 pb-8 mb-4 '
+        <form className='bg-white shadow-md max-w-xl rounded px-8 pt-6 pb-8 mb-4 '
              onSubmit={handleSubmit}
         >
-            <h2 className='text-xl text-indigo-500 mb-2 text-center'>New Question</h2>
+            <h2 className='text-xl text-indigo-500 mb-2 text-center'>{formType}</h2>
             <RenderErrors errors={postErrors}/> 
-            <button className="absolute top-0 right-0 h-8 w-8 bg-gray-700" type='button' onClick={closeForm }>
-                <FontAwesomeIcon icon={faTimes}/>
-            </button>
+            
             <label htmlFor="title" className='text-gray-700 ml-10'>Title: </label>
             <input className='form-input mt-1 ml-10 block w-3/4'
                 type="text"

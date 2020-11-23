@@ -8,12 +8,13 @@ import { connect } from 'react-redux'
 import Footer from './app/Footer';
 import Header from './app/Header';
 import QuestionsList from './features/questions/QuestionsList';
-import { fetchDeleteQuestion, fetchQuestions, postQuestion } from './actions/questionActions';
+import { fetchDeleteQuestion, fetchQuestions, fetchUpdateQuestion, postQuestion } from './actions/questionActions';
 import SingleQuestionPage from './features/questions/SingleQuestionPage';
 import SignUp from './features/users/SignUp';
 import { register, login, getProfile, logoutUser } from './actions/userActions';
 import Login from './features/users/Login';
 import { Alert, success } from './helpers/notifications';
+import EditQuestion from './features/questions/EditQuestion';
 
 class App extends Component {
   constructor(props) {
@@ -56,6 +57,10 @@ class App extends Component {
               <Route exact path='/login'>
                 <Login login={this.props.login} authErrors={this.props.authErrors}/>
               </Route>
+              <Route exact path='/editQuestion/:questionId'>
+                <EditQuestion questions={this.props.questions} fetchUpdateQuestion={this.props.fetchUpdateQuestion}
+                   postErrors={this.props.questionError}/>
+              </Route>
             </Switch>
           </div>
           <Alert stack={ { limit: 3 } }/>
@@ -79,6 +84,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   fetchQuestions: () => dispatch(fetchQuestions()),
   postQuestion: (questionInfo) => dispatch(postQuestion(questionInfo)) ,
+  fetchUpdateQuestion: (questionInfo) => dispatch(fetchUpdateQuestion(questionInfo)),
   fetchDeleteQuestion: (questionId) => dispatch(fetchDeleteQuestion(questionId)),
   register: userInfo => dispatch(register(userInfo)),
   login: userInfo => dispatch(login(userInfo)),

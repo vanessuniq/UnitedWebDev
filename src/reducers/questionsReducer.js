@@ -28,6 +28,11 @@ export const questionsReducer = (state = { questions: [], loading: false, error:
                 loading: false,
                 error: []
             }
+        case 'UPDATE_QUESTION':
+            const newQuestionList = state.questions.map(question => (
+                question.id === action.payload.id ? action.payload : question
+            ))
+            return {...state, questions: newQuestionList }
         case 'DELETE_QUESTION':
             return {
                 ...state,

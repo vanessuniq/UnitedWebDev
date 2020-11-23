@@ -1,4 +1,4 @@
-import { deleteQuestionConfig, postQuestionConfig } from "../helpers/configOptions"
+import { deleteQuestionConfig, postQuestionConfig, putQuestionConfig } from "../helpers/configOptions"
 import { history } from "../helpers/history"
 import { error, success, warning } from "../helpers/notifications"
 
@@ -22,18 +22,28 @@ export const postQuestion = (question) => {
                 } else {
                     dispatch(addQuestion(data.question))
                 };
-            } else {
-                warning('You must be logged in to post a question')
-                history.push('/login')
-            };
-
+            }
         } catch (e) {
             error(e)
             throw e
         }
     };
 };
-
+export const fetchUpdateQuestion = (question) => {
+    return async dispatch => {
+        try {
+            const token = localStorage.token;
+            if (token) {
+                const data = await fetch(`http://localhost:8080/api/v1/questions/${question.question.id}`, putQuestionConfig(question, token)).then(resp => resp.json())
+                if (data.error) {
+                    dispatch(postQuestionsFailled(data.error))
+                } else {
+                    dispatch(updateQuestion(data.question))
+                };
+            }
+        } catch (e) {}
+    };
+};
 export const fetchDeleteQuestion = (questionId) => {
     return async dispatch => {
         try {
@@ -67,6 +77,12 @@ const postQuestionsFailled = (error) => {
 const addQuestion = (question) => {
     return {
         type: 'ADD_QUESTION',
+        payload: question
+    }
+}
+const updateQuestion = (question) => {
+    return {
+        type: 'UPDATE_QUESTION',
         payload: question
     }
 }

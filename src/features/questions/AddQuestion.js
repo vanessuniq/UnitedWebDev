@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { success } from '../../helpers/notifications';
 import QuestionForm from './QuestionForm';
 
@@ -51,10 +53,13 @@ class AddQuestion extends Component {
     ))
     
     return (
-        <section className={`question-form ${this.props.visible && 'visible'}`}>
+        <section className={`question-form relative ${this.props.visible && 'visible'}`}>
+            <button className="absolute top-0 right-0 h-8 w-8 bg-gray-700" type='button' onClick={this.closeForm }>
+                <FontAwesomeIcon icon={faTimes}/>
+            </button>
             <QuestionForm title={title} body={body} topic={topic} topicOptions={topicOptions}
                 canSave={canSave} closeForm={this.closeForm} postErrors={this.props.postErrors}
-                handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit}
+                handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit} formType='New Question'
             />
         </section>
     )
