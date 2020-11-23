@@ -12,7 +12,7 @@ function SingleQuestionPage({questions, currentUser, deleteQuestion, deleteAnswe
     const renderQuestion = () =>  {
         if (question){
             const answers = question.answers? 
-                question.answers.map(ans => (
+                question.answers.sort((a,b) => b.created_at.localeCompare(a.created_at) ).map(ans => (
                 <PostCard key={ans.id.toString()} post={ans} body={ans.body}  currentUser={currentUser} 
                     deleteQuestion={() => {
                         deleteAnswer(ans.id);
