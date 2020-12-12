@@ -30,11 +30,11 @@ const PostCard = ({post, body, currentUser, deleteQuestion}) => {
                                 </Link> 
                                 : null
                             } &nbsp; &nbsp;
-                           <button> reaction button </button> &nbsp; &nbsp;
+                           
                             {/**<div className="text-sm text-green-600">
                                 <i>{post.votes.length} Vote(s)</i>
                         </div>**/}
-                        <LikeButton/>
+                        <LikeButton votes={post.votes} currentUser={currentUser}/>
                         </div>
                     </div>
                 </article>
