@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import DeleteEditButtons from './DeleteEditButtons';
+import LikeButton from './LikeButton';
 import PostBody from './PostBody';
 import TimeAgo from './TimeAgo'
 const PostCard = ({post, body, currentUser, deleteQuestion}) => {
@@ -25,14 +26,15 @@ const PostCard = ({post, body, currentUser, deleteQuestion}) => {
                             {
                                 post.answers? 
                                 <Link to={`/questions/${post.id}`} className="text-purple-600 hover:text-red-600">
-                                    {post.answers.length} answer(s) 
+                                    {`${post.answers.length} ${post.answers.length> 1? 'answers' : 'answer'}`}
                                 </Link> 
                                 : null
                             } &nbsp; &nbsp;
                            <button> reaction button </button> &nbsp; &nbsp;
-                            <div className="text-sm text-green-600">
+                            {/**<div className="text-sm text-green-600">
                                 <i>{post.votes.length} Vote(s)</i>
-                            </div>
+                        </div>**/}
+                        <LikeButton/>
                         </div>
                     </div>
                 </article>
