@@ -35,9 +35,14 @@ export const questionsReducer = (state = { questions: [], loading: false, error:
             return {...state, questions: newQuestionList }
         case 'UPDATE_ANSWER':
             const newQuestions = state.questions.map(question => {
-                if (question.id === action.payload.question_id) {
-                    let answer = question.answers.find(answer => answer.id === action.payload.id);
-                    answer = action.payload;
+                if (question.id === action.payload.question.id) {
+                    question.answers = question.answers.map(answer => {
+                        if (answer.id === action.payload.id) {
+                            answer = action.payload;
+                            return answer
+                        } else { return answer }
+                    });
+
                     return question
                 } else {
                     return question
