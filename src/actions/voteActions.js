@@ -12,33 +12,45 @@ export const postVote = (vote) => {
                 if (data.question) {
                     dispatch(updateQuestion(data.question))
                 } else if (data.answer) {
-                    dispatch(updateAnswer(data.answer))
+                    dispatch(addAnswerVote(data.answer))
                 };
             }
         } catch (e) { error(e) }
     };
 };
 
-export const deleteVote = (voteId) => {
+export const deleteVote = (vote) => {
     return async dispatch => {
         try {
             const token = localStorage.token;
             if (token) {
-                const data = await fetch(`http://localhost:8080/api/v1/votes/${voteId}`, deleteQuestionConfig(token))
-                if (data.question) {
-                    dispatch(updateQuestion(data.question))
-
-                } else if (data.answer) {
-                    dispatch(updateAnswer(data.answer))
+                const data = await fetch(`http://localhost:8080/api/v1/votes/${vote.id}`, deleteQuestionConfig(token))
+                if (data.status === 204 && vote.votable_type === 'Question') {
+                    dispatch(deleteQuestionVote(vote))
+                } else if (data.status === 204 && vote.votable_type === 'Answer') {
+                    dispatch(deleteAnswerVote(vote))
                 };
             }
 
         } catch (e) { error(e) }
     };
 };
-const updateAnswer = (answer) => {
+const addAnswerVote = (answer) => {
     return {
-        type: 'UPDATE_ANSWER',
+        type: 'ADD_ANSWER_VOTE',
         payload: answer
+    }
+}
+const deleteAnswerVote = (vote) => {
+    return {
+        type: 'DELETE_ANSWER_VOTE',
+        payload: vote
+    }
+}
+
+const deleteQuestionVote = (vote) => {
+    return {
+        type: 'DELETE_QUESTION_VOTE',
+        payload: vote
     }
 }

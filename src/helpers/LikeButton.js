@@ -1,8 +1,7 @@
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-//import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { postVote } from '../actions/voteActions'
+import { deleteVote, postVote } from '../actions/voteActions'
 
 export default function LikeButton({post, currentUser}) {
     const dispatch = useDispatch()
@@ -10,7 +9,9 @@ export default function LikeButton({post, currentUser}) {
     const voted = post.votes.find(vote => vote.user_id === currentUser.id )
     function addLike() {
         const like = post.votes.find(vote => vote.user_id === currentUser.id)
-        if (!like) {
+        if (like) {
+            dispatch(deleteVote(like))
+        } else {
             dispatch(postVote(post.answers? {question_id: post.id} : {answer_id: post.id}))
         }
     }

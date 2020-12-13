@@ -33,7 +33,7 @@ export const questionsReducer = (state = { questions: [], loading: false, error:
                 question.id === action.payload.id ? action.payload : question
             ))
             return {...state, questions: newQuestionList }
-        case 'UPDATE_ANSWER':
+        case 'ADD_ANSWER_VOTE':
             const newQuestions = state.questions.map(question => {
                 if (question.id === action.payload.question.id) {
                     question.answers = question.answers.map(answer => {
@@ -49,6 +49,25 @@ export const questionsReducer = (state = { questions: [], loading: false, error:
                 }
             })
             return {...state, questions: newQuestions }
+        case 'DELETE_QUESTION_VOTE':
+            return {
+                ...state,
+                questions: state.questions.map(question => {
+                    question.votes = question.votes.filter(vote => vote.id !== action.payload.id)
+                    return question
+                })
+            }
+        case 'DELETE_ANSWER_VOTE':
+            return {
+                ...state,
+                questions: state.questions.map(question => {
+                    question.answers = question.answers.map(answer => {
+                        answer.votes = answer.votes.filter(vote => vote.id !== action.payload.id);
+                        return answer
+                    })
+                    return question
+                })
+            }
         case 'DELETE_QUESTION':
             return {
                 ...state,
