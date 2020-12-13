@@ -80,7 +80,7 @@ const addQuestion = (question) => {
         payload: question
     }
 }
-const updateQuestion = (question) => {
+export const updateQuestion = (question) => {
     return {
         type: 'UPDATE_QUESTION',
         payload: question

@@ -34,7 +34,7 @@ const PostCard = ({post, body, currentUser, deleteQuestion}) => {
                             {/**<div className="text-sm text-green-600">
                                 <i>{post.votes.length} Vote(s)</i>
                         </div>**/}
-                        <LikeButton votes={post.votes} currentUser={currentUser}/>
+                        <LikeButton post={post} currentUser={currentUser}/>
                         </div>
                     </div>
                 </article>

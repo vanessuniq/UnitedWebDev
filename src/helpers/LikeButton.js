@@ -2,9 +2,9 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 
-export default function LikeButton({votes, currentUser}) {
-    const [like, setLike ] = useState(votes.length)
-    const voted = votes.find(vote => vote.user_id === currentUser.id )
+export default function LikeButton({post, currentUser}) {
+    const [like, setLike ] = useState(post.votes.length)
+    const voted = post.votes.find(vote => vote.user_id === currentUser.id )
 
     return ( 
         <button type ='button' 
