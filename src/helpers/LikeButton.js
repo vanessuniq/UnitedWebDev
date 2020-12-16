@@ -30,8 +30,8 @@ export default function LikeButton({post, currentUser}) {
                     {`${likes} ${likes>1? 'likes' : 'like'}`}
                 </i>
             </button>
-            <ReactTooltip id="likeTip" place="top" effect="solid">
-                {voted? "Unlike" : "Find this post constructive?"}
+            <ReactTooltip id="likeTip" place="top">
+                Find this post constructive?
             </ReactTooltip>
         </Fragment>
     )
