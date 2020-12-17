@@ -19466,6 +19466,8 @@ button.reaction-button {
   white-space: nowrap;
 }
 
+/* forms */
+
 .question-form {
   position: fixed;
   right: 0;
@@ -19478,6 +19480,37 @@ button.reaction-button {
   transform: translateX(-10px);
   right: 40%;
   width: 28rem;
+}
+
+/* user profile */
+
+.user-profile {
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  box-shadow: 0 15px 55px rgba(0, 0, 0, 0.5);
+  color: rgb(17, 1, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 300px;
+  height: 300px;
+  z-index: 3;
+}
+
+.user-info {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 5px 55px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  padding: 30px 0 15px;
+  margin-top: -15px;
+  width: 80%;
+  text-align: center;
+  z-index: 2;
 }
 
 /* google css loader for variety of loader*/

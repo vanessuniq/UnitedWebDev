@@ -65,7 +65,7 @@ class App extends Component {
                    postErrors={this.props.questionError}/>
               </Route>
               <Route exact path='/profile'>
-                <Profile/>
+                <Profile user={this.props.currentUser}/>
               </Route>
             </Switch>
           </div>
