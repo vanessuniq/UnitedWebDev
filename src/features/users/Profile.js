@@ -32,10 +32,10 @@ export default function Profile({users}) {
             <div className="flex flex-col items-center mb-4">
                 <div className="user-profile" 
                     style={{backgroundImage: `url(${user.avatar})`}}>
-                    <h3 className="font-bold text-black tracking-widest uppercase m-0 text-lg">
+                    <h3 className="font-bold bg-black text-white tracking-widest uppercase m-0 text-lg">
                         {user.username}
                     </h3>
-                    <p className="font-bold leading-snug text-purple tracking-wide mt-5 ml-0 mb-8">{user.bio}</p>
+                    <p className="font-bold leading-snug bg-black text-white tracking-wide mt-5 ml-0 mb-8">{user.bio}</p>
                 </div>
                 <ul className="user-info">
                     <li>

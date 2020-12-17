@@ -11,10 +11,19 @@ const PostCard = ({post, body, currentUser, deleteQuestion}) => {
                     </div>
                     <div className=" bg-white p-4 flex flex-col justify-between leading-normal">
                         <div className="mb-8">
-                        
-                           {post.title? <Link to={`/questions/${post.id}`} className="text-blue-900 hover:text-red-600 font-bold text-xl mb-2">{post.title}</Link> : null}
+                             {/*distinguish between question and answer by checking if post has title */}
+                           {post.title? 
+                                <Link to={`/questions/${post.id}`} className="text-blue-900 hover:text-red-600 font-bold text-xl mb-2">
+                                    {post.title}
+                                </Link> 
+                            : null}
                             <div className='text-sm'>
-                                <span className="text-gray-900 leading-none">by {post.user.username} </span>
+                                <span className="text-gray-900 leading-none">
+                                    by &nbsp;
+                                    <Link to={`/profile/${post.user.username}`} className="text-blue-400 hover:text-red-500">
+                                        {post.user.username}
+                                    </Link> 
+                                </span>
                                 <TimeAgo timestamp={post.created_at}/>
                                 {currentUser.username === post.user.username && 
                                     <DeleteEditButtons post={post} deleteQuestion={deleteQuestion}/>} 
@@ -31,9 +40,6 @@ const PostCard = ({post, body, currentUser, deleteQuestion}) => {
                                 : null
                             } &nbsp; &nbsp;
                            
-                            {/**<div className="text-sm text-green-600">
-                                <i>{post.votes.length} Vote(s)</i>
-                        </div>**/}
                         <LikeButton post={post} currentUser={currentUser}/>
                         </div>
                     </div>
