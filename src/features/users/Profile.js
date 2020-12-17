@@ -17,8 +17,8 @@ export default function Profile({user}) {
     ))
     return (
         <div 
-            className="flex justify-evenly relative bg-gradient-to-r md:bg-gradient-to-l from-orange-100 via-red-300 to-pink-100 ">
-            <div className="flex flex-col items-center">
+            className="flex justify-evenly flex-col md:flex-row relative bg-gradient-to-r md:from-yellow-200 from-orange-100 via-red-300 to-pink-100 mb-8">
+            <div className="flex flex-col items-center mb-4">
                 <div className="user-profile" 
                     style={{backgroundImage: `url(${user.avatar})`}}>
                     <h3 className="font-bold text-black tracking-widest uppercase m-0 text-lg">
