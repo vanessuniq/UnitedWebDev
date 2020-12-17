@@ -1,20 +1,31 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import TimeAgo from '../../helpers/TimeAgo'
 
-export default function Profile({user}) {
+export default function Profile({users}) {
     //Design inspired by this dribbble: https://dribbble.com/shots/2316219-User-profile
-    console.log(user)
-    const userQuestions = user.questions.map(question => (
-        <li key={question.id} className="grid grid-cols-3 divide-x divide-green-500 text-center">
-            <Link to={`/questions/${question.id}`}
-                className="text-purple-600 hover:text-green-600">
-                {question.title}  &nbsp;
-            </Link>
-            <h4 >{question.topic}</h4>
-            <TimeAgo timestamp={question.created_at}/>
-        </li>
-    ))
+
+    // retrieve username from params and find user from the list of users
+    const {username} = useParams();
+    const user = users.find(user => user.username === username);
+
+    // list of user's questions to display: title, topic and date created only
+    
+    const userQuestions = () => { 
+        if(user){
+            return user.questions.map(question => (
+            <li key={question.id} className="grid grid-cols-3 divide-x divide-green-500 text-center">
+                <Link to={`/questions/${question.id}`}
+                    className="text-purple-600 hover:text-green-600">
+                    {question.title}  &nbsp;
+                </Link>
+                <h4 >{question.topic}</h4>
+                <TimeAgo timestamp={question.created_at}/>
+            </li>
+            ))
+        }
+    }
+    
     return (
         <div 
             className="flex justify-evenly flex-col md:flex-row relative bg-gradient-to-r md:from-yellow-200 from-orange-100 via-red-300 to-pink-100 mb-8">
@@ -44,7 +55,7 @@ export default function Profile({user}) {
                     <span className="text-gray-600">({user.questions.length})</span>
                 </h2>
                 <ul className="grid grid-cols-1 divide-y divide-gray-600">
-                    {user.questions.length && userQuestions}
+                    {user.questions.length && userQuestions()}
                 </ul>
             </div>
            

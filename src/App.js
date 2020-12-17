@@ -64,8 +64,8 @@ class App extends Component {
                 <EditQuestion questions={this.props.questions} fetchUpdateQuestion={this.props.fetchUpdateQuestion}
                    postErrors={this.props.questionError}/>
               </Route>
-              <Route exact path='/profile'>
-                <Profile user={this.props.currentUser}/>
+              <Route exact path='/profile/:username'>
+                <Profile users={this.props.users}/>
               </Route>
             </Switch>
           </div>
@@ -84,7 +84,8 @@ const mapStateToProps = state => {
     loading: state.questions.loading,
     questionError: state.questions.error,
     authErrors: state.users.errors,
-    currentUser: state.users.currentUser
+    currentUser: state.users.currentUser,
+    users: state.users.all,
   }
 }
 const mapDispatchToProps = dispatch => ({
