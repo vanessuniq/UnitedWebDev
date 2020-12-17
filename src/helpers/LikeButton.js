@@ -7,12 +7,12 @@ import { deleteVote, postVote } from '../actions/voteActions'
 
 export default function LikeButton({post, currentUser}) {
     const dispatch = useDispatch()
-    const likes = post.votes.length;
+    const likes = post.votes.length; //number of post's likes
+    // check if current user already liked the given post
     const voted = post.votes.find(vote => vote.user_id === currentUser.id )
     function addLike() {
-        const like = post.votes.find(vote => vote.user_id === currentUser.id)
-        if (like) {
-            dispatch(deleteVote(like))
+        if (voted) {
+            dispatch(deleteVote(voted))
         } else {
             dispatch(postVote(post.answers? {question_id: post.id} : {answer_id: post.id}))
         }
