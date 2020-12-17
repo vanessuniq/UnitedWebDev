@@ -5,15 +5,19 @@ import PostCard from '../../helpers/PostCard'
 import AnswerForm from '../answers/AnswerForm'
 
 function SingleQuestionPage({questions, currentUser, deleteQuestion, deleteAnswer, postAnswer, postErrors}) {
+    // retrieve id from params and find question by id
     const {questionId}= useParams()
     const history = useHistory()
     const question = questions.find(quest => quest.id === parseInt(questionId, 10))
-    //debugger
+
+    // render question info: title, body, author, answers list
     const renderQuestion = () =>  {
         if (question){
+            // sort answers by most recent if answers
             const answers = question.answers? 
                 question.answers.sort((a,b) => b.created_at.localeCompare(a.created_at) ).map(ans => (
-                <PostCard key={ans.id.toString()} post={ans} body={ans.body}  currentUser={currentUser} 
+                <PostCard key={ans.id.toString()} post={ans} body={ans.body}  currentUser={currentUser}
+                    // callback function on delete btn click
                     deleteQuestion={() => {
                         deleteAnswer(ans.id);
                         history.push(`/questions/${questionId}`)
