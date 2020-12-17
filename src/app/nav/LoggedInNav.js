@@ -18,7 +18,7 @@ export default function LoggedInNav({currentUser, logoutUser}) {
             <li className="nav-item">
                 <Link
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                to="/"
+                to="/profile"
                 >
                     <FontAwesomeIcon icon={faUser}/>
                     <span className="ml-2">Hello {currentUser.username}</span>

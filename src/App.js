@@ -16,6 +16,7 @@ import Login from './features/users/Login';
 import { Alert, success } from './helpers/notifications';
 import EditQuestion from './features/questions/EditQuestion';
 import { fetchDeleteAnswer, postAnswer } from './actions/answerActions';
+import Profile from './features/users/Profile';
 
 class App extends Component {
   constructor(props) {
@@ -62,6 +63,9 @@ class App extends Component {
               <Route exact path='/editQuestion/:questionId'>
                 <EditQuestion questions={this.props.questions} fetchUpdateQuestion={this.props.fetchUpdateQuestion}
                    postErrors={this.props.questionError}/>
+              </Route>
+              <Route exact path='/profile'>
+                <Profile/>
               </Route>
             </Switch>
           </div>
