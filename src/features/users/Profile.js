@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import TimeAgo from '../../helpers/TimeAgo'
 
@@ -25,40 +25,56 @@ export default function Profile({users}) {
             ))
         }
     }
-    
-    return (
-        <div 
-            className="flex justify-evenly flex-col md:flex-row relative bg-gradient-to-r md:from-yellow-200 from-orange-100 via-red-300 to-pink-100 mb-8">
-            <div className="flex flex-col items-center mb-4">
-                <div className="user-profile" 
-                    style={{backgroundImage: `url(${user.avatar})`}}>
-                    <h3 className="font-bold bg-black text-white tracking-widest uppercase m-0 text-lg">
-                        {user.username}
-                    </h3>
-                    <p className="font-bold leading-snug bg-black text-white tracking-wide mt-5 ml-0 mb-8">{user.bio}</p>
-                </div>
-                <ul className="user-info">
-                    <li>
-                        <h3>{user.questions.length}</h3>
-                        <small>{user.questions.length > 1? "questions": "question"}</small>
-                    </li>
-                    <li>
-                        <h3>{user.answers.length}</h3>
-                        <small>{user.answers.length > 1? "answers" : "answer"}</small>
-                    </li>
-                    
-                </ul>
-            </div>
-            <div>
-                <h2 className="font-bold tracking-widest text-lg text-center text-green mb-4">
-                    Posted Questions
-                    <span className="text-gray-600">({user.questions.length})</span>
-                </h2>
-                <ul className="grid grid-cols-1 divide-y divide-gray-600">
-                    {user.questions.length && userQuestions()}
-                </ul>
-            </div>
+    // render profile if user has loaded else loader to prevent the page to crash
+    const renderProfile = () => {
+        if(user){
+            return (
+                <div 
+                    className="flex justify-evenly flex-col md:flex-row relative bg-gradient-to-r md:from-yellow-200 from-orange-100 via-red-300 to-pink-100 mb-8">
+                    <div className="flex flex-col items-center mb-4">
+                        <div className="user-profile" 
+                            style={{backgroundImage: `url(${user.avatar})`}}>
+                            <h3 className="font-bold bg-black text-white tracking-widest uppercase m-0 text-lg">
+                                {user.username}
+                            </h3>
+                            <p className="font-bold leading-snug bg-black text-white tracking-wide mt-5 ml-0 mb-8">{user.bio}</p>
+                        </div>
+                        <ul className="user-info">
+                            <li>
+                                <h3>{user.questions.length}</h3>
+                                <small>{user.questions.length > 1? "questions": "question"}</small>
+                            </li>
+                            <li>
+                                <h3>{user.answers.length}</h3>
+                                <small>{user.answers.length > 1? "answers" : "answer"}</small>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <div className="mb-4">
+                        <h2 className="font-bold tracking-widest text-lg text-center text-green mb-4">
+                            Posted Questions
+                            <span className="text-gray-600">({user.questions.length})</span>
+                        </h2>
+                        <ul className="grid grid-cols-1 divide-y divide-gray-600">
+                            {user.questions.length && userQuestions()}
+                        </ul>
+                    </div>
            
         </div>
+            )
+        } else {
+            return (
+                <div className="flex justify-center">
+                    <div className="loader"></div>
+                </div>
+            )
+        }
+    }
+    
+    return (
+        <Fragment>
+            {renderProfile()}
+        </Fragment>
     )
 }

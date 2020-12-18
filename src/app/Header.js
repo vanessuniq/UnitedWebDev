@@ -76,13 +76,16 @@ class Header extends Component {
                                     <Link
                                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                                     to="/"
+                                    onClick={() => this.setState({ isOpen: false })}
                                     >
                                         <span className="ml-2">Home</span>
                                     </Link>
                                 </li>
                                 {this.props.currentUser.username? 
-                                    <LoggedInNav currentUser={this.props.currentUser} logoutUser={this.props.logoutUser}/> 
-                                    : <DefaultNav/>
+                                    <LoggedInNav currentUser={this.props.currentUser} 
+                                        logoutUser={this.props.logoutUser}
+                                        closeMenu={() => this.setState({isOpen: false})}/> 
+                                    : <DefaultNav closeMenu={() => this.setState({isOpen: false})}/>
                                 }
                             </ul>
                         </div>

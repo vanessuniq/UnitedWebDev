@@ -3,14 +3,17 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function LoggedInNav({currentUser, logoutUser}) {
+export default function LoggedInNav({currentUser, logoutUser, closeMenu}) {
     return (
         <Fragment>
             <li className="nav-item">
                 <Link
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 to="/"
-                onClick={logoutUser}
+                onClick={() => {
+                    closeMenu()
+                    logoutUser()
+                }}
                 >
                     <span className="ml-2">Logout</span>
                 </Link>
@@ -19,6 +22,7 @@ export default function LoggedInNav({currentUser, logoutUser}) {
                 <Link
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 to={`/profile/${currentUser.username}`}
+                onClick={closeMenu}
                 >
                     <FontAwesomeIcon icon={faUser}/>
                     <span className="ml-2">Hello {currentUser.username}</span>
