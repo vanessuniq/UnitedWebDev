@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { success } from '../../helpers/notifications'
+import { error, success } from '../../helpers/notifications'
 import RenderErrors from '../../helpers/RenderErrors'
 
 export default function AnswerForm({currentUser, postAnswer, postErrors}) {
@@ -12,13 +12,19 @@ export default function AnswerForm({currentUser, postAnswer, postErrors}) {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const answer = {answer: {body, user_id: currentUser.id, question_id: parseInt(questionId)}}
-        await postAnswer(answer)
 
-        if (postErrors.length === 0) {
-            success('Your answer has been successfully posted')
-            setbody(''); 
-            history.goBack()
+        if (currentUser.id) {
+            console.log({currentUser})
+            const answer = {answer: {body, user_id: currentUser.id, question_id: parseInt(questionId)}};
+            await postAnswer(answer);
+            if (postErrors.length === 0) {
+                success('Your answer has been successfully posted')
+                setbody(''); 
+                history.push(`/questions/${questionId}`)
+            }
+        } else {
+            error('You must be logged in to post');
+            setbody('');
         }
 
     }
