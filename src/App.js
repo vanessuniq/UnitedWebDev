@@ -18,6 +18,7 @@ import EditQuestion from './features/questions/EditQuestion';
 import { fetchDeleteAnswer, postAnswer } from './actions/answerActions';
 import Profile from './features/users/Profile';
 import Users from './features/users/Users';
+import Home from './app/Home';
 
 class App extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class App extends Component {
           <div className="p-3">
             <Switch>
               <Route exact path='/'>
+                <Home/>
                 <QuestionsList loading={this.props.loading} questions={this.props.questions} 
                 currentUser={this.props.currentUser}  deleteQuestion={this.props.fetchDeleteQuestion}
                 />
