@@ -46,7 +46,14 @@ class App extends Component {
           <div className="p-3">
             <Switch>
               <Route exact path='/'>
-                <Home/>
+                {this.props.currentUser.username?
+                  <QuestionsList loading={this.props.loading} questions={this.props.questions} 
+                  currentUser={this.props.currentUser}  deleteQuestion={this.props.fetchDeleteQuestion}
+                  /> :
+                  <Home/>
+                }
+              </Route> 
+              <Route exact path='/questions'>
                 <QuestionsList loading={this.props.loading} questions={this.props.questions} 
                 currentUser={this.props.currentUser}  deleteQuestion={this.props.fetchDeleteQuestion}
                 />

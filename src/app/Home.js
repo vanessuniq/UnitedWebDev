@@ -19,7 +19,7 @@ export default function Home() {
             <div className="mt-8">
             <button className="bg-red-600 py-2 px-4 border-b-4 border-red-800 rounded text-white
                 hover:border-red-lighter hover:bg-red-400">
-                    <Link to='/'>Browse questions</Link>
+                    <Link to='/questions'>Browse questions</Link>
             </button>
             </div>
             
