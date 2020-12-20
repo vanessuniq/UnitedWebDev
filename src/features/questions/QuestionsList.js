@@ -3,30 +3,36 @@ import PostCard from '../../helpers/PostCard';
 import FilterQuestions from './FilterQuestions';
 
 const QuestionsList = ({loading, questions, currentUser, deleteQuestion}) => {
+    const pluralize = (word, num) => num > 1? `${num} ${word}s` : `${num} ${word}`
     // state to control filtering questions based on given criteria
     const [filteredQuestions, setFilteredQuestions] = useState({
         topic: 'All topics',
-        list: []
+        list: [],
+        questionsStat: pluralize('question', questions.length)
     })
     // update the state as the list of questions from api call changes
     useEffect(() => {
        setFilteredQuestions({
-           list: [...questions].sort((a,b) => b.created_at.localeCompare(a.created_at))
+           list: [...questions].sort((a,b) => b.created_at.localeCompare(a.created_at)),
+           questionsStat: pluralize('question', questions.length)
        })
     }, [questions])
     // filter question list on topic select
     const onSelectChange = (e) => {
         const topic = e.target.value;
         if (topic !== 'All topics') {
+            const list = questions.filter(question => question.topic === topic)
+                                .sort((a,b) => b.created_at.localeCompare(a.created_at));
             setFilteredQuestions({
                 ...filteredQuestions,
                 topic: topic,
-                list: questions.filter(question => question.topic === topic)
-                                .sort((a,b) => b.created_at.localeCompare(a.created_at))
+                list: list,
+                questionsStat: `${pluralize('question',list.length)} on ${topic}`
             })
         } else {
             setFilteredQuestions({
                 ...filteredQuestions,
+                questionsStat: pluralize('question', questions.length),
                 topic: topic,
                 list: [...questions].sort((a,b) => b.created_at.localeCompare(a.created_at))
             })
@@ -40,8 +46,14 @@ const QuestionsList = ({loading, questions, currentUser, deleteQuestion}) => {
             'Unanswered': [...questions].filter(question => question.answers.length === 0)
                                         .sort((a,b) => b.created_at.localeCompare(a.created_at))
         }
+    
+        const description = e.target.innerText === 'Unanswered'? 
+                            `${pluralize('question', list[e.target.innerText].length)} unanswered` 
+                            : pluralize('question', questions.length);
+        
         setFilteredQuestions({
             ...filteredQuestions,
+            questionsStat: description,
             list:list[e.target.innerText]
         })
     }
@@ -72,6 +84,7 @@ const QuestionsList = ({loading, questions, currentUser, deleteQuestion}) => {
                 topic={filteredQuestions.topic} 
                 onSelectChange={onSelectChange} 
                 onButtonClick={onButtonClick}
+                questionsStat={filteredQuestions.questionsStat}
             />
             {handleQuestionsFetch()}
         </section>
