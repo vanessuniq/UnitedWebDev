@@ -43,7 +43,7 @@ export default function Users({users}) {
                 <form className='mb-3' onSubmit={filterUsers}>
                     <input type="search" name="username" 
                     placeholder="Search by name..."
-                    className="bg-purple-white shadow rounded border-0 p-3 text-dark"
+                    className="bg-purple-white shadow rounded border-0 p-3 text-dark antialiased"
                     value={searchValue}
                     onChange={(e) => setsearchValue( e.target.value)}/>
                 </form>
