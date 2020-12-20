@@ -1,5 +1,6 @@
 import React from 'react';
 import PostCard from '../../helpers/PostCard';
+import FilterQuestions from './FilterQuestions';
 
 const QuestionsList = ({loading, questions, currentUser, deleteQuestion}) => {
     const handleQuestionsFetch = () => {
@@ -22,7 +23,8 @@ const QuestionsList = ({loading, questions, currentUser, deleteQuestion}) => {
     }
     return (
         <section className='posts-list mb-8'>
-            <h1>Questions</h1>
+            <h1 className="font-bold text-2xl mb-3">All Questions</h1>
+            <FilterQuestions/>
             {handleQuestionsFetch()}
         </section>
     );
