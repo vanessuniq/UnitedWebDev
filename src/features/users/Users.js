@@ -1,21 +1,29 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Users({users}) {
     const renderusers = () => {
-        users.map(user => (
-            <div>
-                <div 
-                    className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" 
-                    style={{backgroundImage: `url(${user.avatar})`}} 
-                    title="profile picture">
-                </div>
-            </div>
-        ))
+        return users.map(user => {
+            return (
+                <Link key={user.id} to={`/profile/${user.username}`}>
+                    <div className="user-profile m-4" 
+                        style={{backgroundImage: `url(${user.avatar})`}}>
+                        <h3 className="font-bold bg-black text-white tracking-widest uppercase m-0 text-lg">
+                            {user.username}
+                        </h3>
+                        <p className="font-bold leading-snug bg-black text-white tracking-wide mt-5 ml-0 mb-8">{user.bio}</p>
+                    </div>
+                </Link>
+            )
+        })
     }
     return (
-        <div>
-            <h1>Users</h1>
-            {renderusers()}
+        <div className="container mx-auto">
+            <h1 className="font-bold text-2xl mb-3 text-center">Users</h1>
+            <div className="md:flex flex-wrap md:-mx-3 justify-center items-center mb-4">
+                {renderusers()}
+            </div>
+            
         </div>
     )
 }
