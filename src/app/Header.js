@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 import { Link, withRouter } from 'react-router-dom';
 import LoggedInNav from './nav/LoggedInNav';
 import DefaultNav from './nav/DefaultNav';
@@ -40,10 +40,12 @@ class Header extends Component {
                     <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
                         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
                             <Link
-                                className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-white"
+                                className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase
+                                text-gradient bg-gradient-to-r from-pink-900 via-purple-200 to-indigo-700"
                                 to="/"
                             >
-                                WEB DEV QA ENGINE
+                               <FontAwesomeIcon icon={faCodeBranch} className="animate-bounce"/>
+                                UNITED WEB DEV
                             </Link>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                                 onClick={this.toggleQuestionForm}
