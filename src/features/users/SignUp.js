@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import RenderErrors from '../../helpers/RenderErrors';
 
 class SignUp extends React.Component {
@@ -12,7 +12,7 @@ class SignUp extends React.Component {
                 avatar: '',
                 bio: ''
             },
-            
+            submitted: false
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -28,9 +28,16 @@ class SignUp extends React.Component {
             
         })
     }
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        this.props.register({user: this.state.user})
+        this.setState({
+            ...this.state,
+            submitted: true
+        })
+        await this.props.register({user: this.state.user})
+        if (this.props.authErrors.length === 0) {
+            this.props.history.push('/')
+        }
     }
     render() {
         const {user} = this.state
@@ -42,7 +49,7 @@ class SignUp extends React.Component {
                         <h3 className="mb-4 text-2xl text-center">Welcome proactive learner, please sign up below</h3>
                     </div>
                 <form className="bg-white md:w-1/2 shadow-md rounded px-8 pt-6 pb-8 mb-8" onSubmit={this.handleSubmit}>
-                    <RenderErrors errors={this.props.authErrors}/>
+                    {this.state.submitted && <RenderErrors errors={this.props.authErrors}/>}
                     <div className="mt-4">
                         <label htmlFor="username" className="block">
                             <span className="text-gray-700">Username</span>
@@ -113,4 +120,4 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp;
+export default withRouter(SignUp);

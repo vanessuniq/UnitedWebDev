@@ -1,5 +1,4 @@
 import { getProfileConfig, postConfig } from "../helpers/configOptions";
-import { history } from "../helpers/history";
 import { error, success } from "../helpers/notifications";
 
 const DOMAIN = "https://united-web-dev-api.herokuapp.com"
@@ -22,9 +21,9 @@ export const register = (user) => {
                 dispatch(authFailed(data.errors))
             } else {
                 localStorage.setItem('token', data.jwt)
-                success(`Welcome ${data.user.username}, your account has been created!`)
                 dispatch(loginUser(data.user))
-                history.push('/')
+                success(`Welcome ${data.user.username}, your account has been created!`)
+
             };
         } catch (e) {
             error(e)

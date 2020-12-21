@@ -8,7 +8,7 @@ export const userReducer = (state = initialState, action) => {
         case 'AUTH_FAILED':
             return {
                 ...state,
-                errors: state.errors.concat(action.payload)
+                errors: [].concat(action.payload)
             }
         case 'LOGIN_USER':
             const newUser = state.all.find(user => user.id === action.payload.id)

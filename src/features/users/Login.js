@@ -9,7 +9,8 @@ class Login extends Component {
             user: {
                 username: '',
                 password: ''
-            }
+            },
+            submitted: false
         };
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -26,6 +27,10 @@ class Login extends Component {
     }
     handleSubmit = async (event) => {
         event.preventDefault();
+        this.setState({
+            ...this.state,
+            submitted: true
+        })
         await this.props.login({user: this.state.user})
         if (this.props.authErrors.length === 0) {
             this.props.history.push('/')
@@ -39,7 +44,7 @@ class Login extends Component {
             <h1 className="mb-6 text-center text-xl text-blue-900">Welcome back! Login to gain access</h1>
             <div className='w-1/2'>
                 <form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4' onSubmit={this.handleSubmit}>
-                    <RenderErrors errors={this.props.authErrors}/>
+                    {this.state.submitted && <RenderErrors errors={this.props.authErrors}/>}
                     <div className='mb-4'>
                         <label htmlFor="username" className="block text-gray-700 font-bold mb-2">Username</label>
                         <input type="text" name="username"
