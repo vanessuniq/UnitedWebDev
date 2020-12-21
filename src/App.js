@@ -21,11 +21,7 @@ import Users from './features/users/Users';
 import Home from './app/Home';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-   
+ 
   componentDidMount() {
     this.props.fetchQuestions()
     this.props.getProfile()
