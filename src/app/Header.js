@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import LoggedInNav from './nav/LoggedInNav';
 import DefaultNav from './nav/DefaultNav';
 import AddQuestion from '../features/questions/AddQuestion';
-import { warning } from '../helpers/notifications';
+import { Alert, warning } from '../helpers/notifications';
 
 class Header extends Component {
     constructor(props) {
@@ -100,6 +100,7 @@ class Header extends Component {
                         </div>
                     </div>
                 </nav>
+                <Alert stack={ { limit: 3 } }/>
             </Fragment>
 		);
 	}

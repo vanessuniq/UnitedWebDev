@@ -82,10 +82,10 @@ class App extends Component {
               </Route>
             </Switch>
           </div>
-          <Alert stack={ { limit: 3 } }/>
+          
           <Footer/>
         </Router>
-        
+        <Alert stack={ { limit: 3 } }/>
       </div>
     );
   }
