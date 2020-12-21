@@ -53,7 +53,7 @@ export const fetchDeleteQuestion = (questionId) => {
                 if (data.status === 204) {
                     dispatch(deleteQuestion(questionId))
                     success('Your question has been deleted')
-                    history.push('/')
+                    history.push('/questions')
 
                 } else {
                     error(data.json().error)

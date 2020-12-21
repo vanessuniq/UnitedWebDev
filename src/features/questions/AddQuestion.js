@@ -3,6 +3,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { success } from '../../helpers/notifications';
 import QuestionForm from './QuestionForm';
+import { history } from '../../helpers/history';
 
 class AddQuestion extends Component {
     constructor(props) {
@@ -39,7 +40,8 @@ class AddQuestion extends Component {
         
         if (this.props.postErrors.length === 0) {
             success('Your question has been posted')
-            this.closeForm()
+            this.closeForm();
+            history.push('/questions')
         }    
     }
      

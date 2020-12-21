@@ -14,7 +14,6 @@ export default function AnswerForm({currentUser, postAnswer, postErrors}) {
         e.preventDefault()
 
         if (currentUser.id) {
-            console.log({currentUser})
             const answer = {answer: {body, user_id: currentUser.id, question_id: parseInt(questionId)}};
             await postAnswer(answer);
             if (postErrors.length === 0) {
