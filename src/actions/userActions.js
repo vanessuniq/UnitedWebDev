@@ -2,6 +2,8 @@ import { getProfileConfig, postConfig } from "../helpers/configOptions";
 import { history } from "../helpers/history";
 import { error, success } from "../helpers/notifications";
 
+const DOMAIN = "https://united-web-dev-api.herokuapp.com"
+
 const authFailed = error => ({
     type: 'AUTH_FAILED',
     payload: error
@@ -15,7 +17,7 @@ export const register = (user) => {
     return async dispatch => {
         try {
             dispatch({ type: 'CREATING_OR_GETTING_USER' })
-            const data = await fetch('http://localhost:8080/api/v1/users', postConfig(user)).then(resp => resp.json())
+            const data = await fetch(`${DOMAIN}/api/v1/users`, postConfig(user)).then(resp => resp.json())
             if (data.errors) {
                 dispatch(authFailed(data.errors))
             } else {
@@ -35,7 +37,7 @@ export const login = (user) => {
     return async dispatch => {
         try {
             dispatch({ type: 'CREATING_OR_GETTING_USER' })
-            const data = await fetch('http://localhost:8080/api/v1/login', postConfig(user)).then(resp => resp.json())
+            const data = await fetch(`${DOMAIN}/api/v1/login`, postConfig(user)).then(resp => resp.json())
             if (data.failure) {
                 dispatch(authFailed(data.failure))
             } else {
@@ -60,7 +62,7 @@ export const getProfile = () => {
 
             const token = localStorage.token;
             if (token) {
-                const data = await fetch('http://localhost:8080/api/v1/auto_login', getProfileConfig(token))
+                const data = await fetch(`${DOMAIN}/api/v1/auto_login`, getProfileConfig(token))
                     .then(resp => resp.json());
                 if (data.message) {
                     localStorage.removeItem('token')
@@ -84,7 +86,7 @@ const fetchUsersFulfilled = (users) => ({
 export const fetchAllUsers = () => {
     return async dispatch => {
         try {
-            const data = await fetch('http://localhost:8080/api/v1/users').then(resp => resp.json())
+            const data = await fetch(`${DOMAIN}/api/v1/users`).then(resp => resp.json())
             dispatch(fetchUsersFulfilled(data))
         } catch (e) {
             dispatch(authFailed(e))

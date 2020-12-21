@@ -2,10 +2,12 @@ import { deleteQuestionConfig, postQuestionConfig, putQuestionConfig } from "../
 import { history } from "../helpers/history"
 import { error, success, warning } from "../helpers/notifications"
 
+const DOMAIN = "https://united-web-dev-api.herokuapp.com"
+
 export const fetchQuestions = () => {
     return dispatch => {
         dispatch({ type: 'FETCH_QUESTIONS_PENDING' })
-        fetch('http://localhost:8080/api/v1/questions').then(resp => resp.json()).then(questions => {
+        fetch(`${DOMAIN}/api/v1/questions`).then(resp => resp.json()).then(questions => {
             dispatch({ type: 'FETCH_QUESTIONS_FULFILLED', payload: questions })
         }).catch(e => error(e))
     }
@@ -16,7 +18,7 @@ export const postQuestion = (question) => {
         try {
             const token = localStorage.token;
             if (token) {
-                const data = await fetch('http://localhost:8080/api/v1/questions', postQuestionConfig(question, token)).then(resp => resp.json())
+                const data = await fetch(`${DOMAIN}/api/v1/questions`, postQuestionConfig(question, token)).then(resp => resp.json())
                 if (data.errors) {
                     dispatch(postQuestionsFailled(data.errors))
                 } else {
@@ -34,7 +36,7 @@ export const fetchUpdateQuestion = (question) => {
         try {
             const token = localStorage.token;
             if (token) {
-                const data = await fetch(`http://localhost:8080/api/v1/questions/${question.question.id}`, putQuestionConfig(question, token)).then(resp => resp.json())
+                const data = await fetch(`${DOMAIN}/api/v1/questions/${question.question.id}`, putQuestionConfig(question, token)).then(resp => resp.json())
                 if (data.error) {
                     dispatch(postQuestionsFailled(data.error))
                 } else {
@@ -49,7 +51,7 @@ export const fetchDeleteQuestion = (questionId) => {
         try {
             const token = localStorage.token;
             if (token) {
-                const data = await fetch(`http://localhost:8080/api/v1/questions/${questionId}`, deleteQuestionConfig(token))
+                const data = await fetch(`${DOMAIN}/api/v1/questions/${questionId}`, deleteQuestionConfig(token))
                 if (data.status === 204) {
                     dispatch(deleteQuestion(questionId))
                     success('Your question has been deleted')

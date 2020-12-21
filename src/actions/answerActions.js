@@ -1,12 +1,14 @@
 import { deleteQuestionConfig, postQuestionConfig } from "../helpers/configOptions";
 import { error, success } from "../helpers/notifications";
-import { postQuestionsFailled } from "./questionActions"
+import { postQuestionsFailled } from "./questionActions";
+
+const DOMAIN = "https://united-web-dev-api.herokuapp.com"
 export const postAnswer = (answer) => {
     return async dispatch => {
         try {
             const token = localStorage.token
             if (token) {
-                const data = await fetch('http://localhost:8080/api/v1/answers', postQuestionConfig(answer, token))
+                const data = await fetch(`${DOMAIN}/api/v1/answers`, postQuestionConfig(answer, token))
                     .then(resp => resp.json())
                 if (data.errors) {
                     dispatch(postQuestionsFailled(data.errors))
@@ -30,7 +32,7 @@ export const fetchDeleteAnswer = (answerId) => {
         try {
             const token = localStorage.token;
             if (token) {
-                const data = await fetch(`http://localhost:8080/api/v1/answers/${answerId}`, deleteQuestionConfig(token))
+                const data = await fetch(`${DOMAIN}/api/v1/answers/${answerId}`, deleteQuestionConfig(token))
                 if (data.status === 204) {
                     dispatch(deleteAnswer(answerId))
                     success('Your question has been deleted')

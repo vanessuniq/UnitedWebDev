@@ -2,12 +2,14 @@ import { deleteQuestionConfig, postQuestionConfig } from "../helpers/configOptio
 import { error } from "../helpers/notifications";
 import { updateQuestion } from "./questionActions";
 
+const DOMAIN = "https://united-web-dev-api.herokuapp.com"
+
 export const postVote = (vote) => {
     return async dispatch => {
         try {
             const token = localStorage.token
             if (token) {
-                const data = await fetch('http://localhost:8080/api/v1/votes', postQuestionConfig(vote, token))
+                const data = await fetch(`${DOMAIN}/api/v1/votes`, postQuestionConfig(vote, token))
                     .then(resp => resp.json())
                 if (data.question) {
                     dispatch(updateQuestion(data.question))
@@ -24,7 +26,7 @@ export const deleteVote = (vote) => {
         try {
             const token = localStorage.token;
             if (token) {
-                const data = await fetch(`http://localhost:8080/api/v1/votes/${vote.id}`, deleteQuestionConfig(token))
+                const data = await fetch(`${DOMAIN}/api/v1/votes/${vote.id}`, deleteQuestionConfig(token))
                 if (data.status === 204 && vote.votable_type === 'Question') {
                     dispatch(deleteQuestionVote(vote))
                 } else if (data.status === 204 && vote.votable_type === 'Answer') {
