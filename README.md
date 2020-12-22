@@ -1,3 +1,41 @@
+# United Web Dev
+
+This project is a Stack overflow clone, implementing CRUD pattern in react.js. It is a platform to unite web devolopers of all levels to share their knowledge, bring clarity to though questions and be exposed to different thinking processes.
+
+# Server
+
+The app is served by a custom Rails API on the backend that can be found at this repo: <a href="https://github.com/vanessuniq/rails-qa-engine-api">Rails QA Engine API</a>
+
+# Technology
+
+React, React-Router, React-s-Alert, Redux, Tailwind CSS, FontAwesome
+
+# Authentication System
+
+React Redux: JWT Authentication
+
+# Features
+
+*** User registration and login
+*** Create, retrieve, update, and delete questions/answers
+*** Like/reaction button
+*** Search bar to find users by username
+*** Dropdown and filter buttons to filter questions by topic, likes or unanswered 
+
+# Accomplishment
+
+*** Built a fully functional CRUD Rails API connected to a PostgreSQL Database
+*** Fetched data from the rails API using react life-cycle methods
+*** Used Redux for state management
+*** Used React-Router to implement a routing system to keep UI in sync with the URL
+*** Implemented user authentication system using JSON Web Tokens (JWT)
+*** Implement an alert system using react-s-Alert to alert users of the success or failure of the action taken
+*** Styled the app with Tailwind CSS
+
+# Deployment
+
+Deployed to heroku: https://unitedwebdev.herokuapp.com/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
